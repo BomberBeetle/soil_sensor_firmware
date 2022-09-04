@@ -1,3 +1,4 @@
+/*
 #define TMP_SAMPLES 10000
 #define FIXED_RES 22000.0f
 
@@ -7,7 +8,7 @@ unsigned long long acc1 = 0;
 float res0 = 0;
 float res1 = 0;
 
-void setup() {
+void _setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(A5, INPUT);
@@ -16,7 +17,7 @@ void setup() {
   analogReference(EXTERNAL);
 }
 
-void loop() {
+void _loop() {
   // put your main code here, to run repeatedly:
   acc0 = 0;
   acc1 = 0;
@@ -38,3 +39,4 @@ void loop() {
   Serial.println(String(res1));
   //Serial.println(String(analogRead(A5)));
 }
+*/
