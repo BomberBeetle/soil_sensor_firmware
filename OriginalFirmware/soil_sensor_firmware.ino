@@ -20,7 +20,7 @@
 int current_mode = 0;
 int incoming_byte = 0;
 
-bool ackd = false;
+bool ackd = true;
 bool recv_mode = false;
 
 bool stream_mode = false;
@@ -41,6 +41,9 @@ int acc1 = 0;
 
 void setup() {
   pinMode(PIN_HUM, INPUT);
+  pinMode(PIN_TMP0, INPUT);
+  pinMode(PIN_TMP1, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -58,8 +61,11 @@ void loop() {
       temp_mode = MODE_TMP & current_mode == MODE_TMP;
       string_mode = MODE_STRING & current_mode == MODE_STRING;
       raw_mode = MODE_RAW & current_mode == MODE_RAW;
+
+      if(ack_mode) ackd = true;
       
       recv_mode = false;
+      digitalWrite(LED_BUILTIN, LOW);
       //TODO: Test mode receive;
     }
     else if(incoming_byte == CMD_ACK){
@@ -67,6 +73,7 @@ void loop() {
     }
     else if(incoming_byte == CMD_NEWMODE){
       recv_mode = true;
+      digitalWrite(LED_BUILTIN, HIGH);
     }
   }
 
