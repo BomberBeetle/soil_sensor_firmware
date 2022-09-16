@@ -2,7 +2,7 @@
 #define PIN_TMP1 A1
 #define PIN_HUM A5
 
-#define TMP_SAMPLES 100
+const int TMP_SAMPLES = 100;
 
 long tmp0, tmp1, hum = 0;
 int interval = 0;
@@ -29,9 +29,12 @@ void loop() {
   if(Serial.available() > 0){
     dataIn = Serial.read();
     if(dataIn == 'a'){
-        Serial.println(String(hum));
-        Serial.println(String(tmp0));
-        Serial.println(String(tmp1));
+        Serial.write((byte*)&hum, 2);
+        Serial.write((byte*)&tmp0, 4);
+        Serial.write((byte*)&tmp1, 4);
+    }
+    else if(dataIn == 's'){
+      Serial.write((byte*)&TMP_SAMPLES, 2);
     }
     else Serial.write(dataIn);
   }
